@@ -46,124 +46,193 @@ Used to retrieve records from a table.
 SELECT column1, column2 FROM table_name WHERE condition;
 ```
 **Question 1**
---
--- Paste Question 1 here
-
+How many appointments are scheduled for each doctor?
+Sample table:Appointments Table
 ```sql
--- Paste your SQL code below for Question 1
+select
+     DoctorID,
+     COUNT(AppointmentID) as
+TotalAppointments
+from
+    Appointments
+group by
+    DoctorID
 ```
-
 **Output:**
-
-![Output1](output.png)
+<img width="841" height="791" alt="image" src="https://github.com/user-attachments/assets/158b289b-37f1-4ece-8df9-4a958c6eaf4a" />
 
 **Question 2**
----
--- Paste Question 2 here
-
+How many medical records were created in each month?
+Sample table:MedicalRecords Table
 ```sql
--- Paste your SQL code below for Question 2
+select
+     strftime('%Y-%m', Date) as Month,
+     COUNT(RecordID) as TotalRecords
+from
+   MedicalRecords
+group by
+   Month
+order by
+   Month;
 ```
-
 **Output:**
-
-![Output2](output.png)
+<img width="824" height="618" alt="image" src="https://github.com/user-attachments/assets/beabfc68-d04c-45c5-bf47-f8818dfa87a0" />
 
 **Question 3**
----
--- Paste Question 3 here
+How many patients are covered by each insurance company?
 
+Sample table:Insurance Table
+
+name               type
+-----------------  ----------
+InsuranceID        INTEGER
+PatientID          INTEGER
+InsuranceCompany   TEXT
+PolicyNumber       TEXT
+PolicyHolder       TEXT
+ValidityPeriod     TEXT
 ```sql
--- Paste your SQL code below for Question 3
+select
+     InsuranceCompany,
+     COUNT(PatientID) as TotalPatients
+from
+     Insurance
+group by
+     InsuranceCompany
 ```
-
 **Output:**
+<img width="820" height="810" alt="image" src="https://github.com/user-attachments/assets/0bd379e8-ed8c-4a67-a50f-07a6a0f8056f" />
 
-![Output3](output.png)
 
 **Question 4**
----
--- Paste Question 4 here
+Write a SQL query to determine the number of customers who received at least one grade for their activity.
 
-```sql
--- Paste your SQL code below for Question 4
+Sample table: customer
+
+customer_id |   cust_name    |    city    | grade | salesman_id 
+
+-------------+----------------+------------+-------+-------------
+
+        3002 | Nick Rimando   | New York   |   100 |        5001
+
+        3007 | Brad Davis     | New York   |   200 |        5001
+
+        3005 | Graham Zusi    | California |   200 |        5002
+
+ ```sql
+select COUNT(grade) as "COUNT"
+from customer;
 ```
-
 **Output:**
-
-![Output4](output.png)
+<img width="854" height="470" alt="image" src="https://github.com/user-attachments/assets/e92d441b-281a-4b0c-a142-7a31bcd26369" />
 
 **Question 5**
----
--- Paste Question 5 here
+Write a SQL query to find the total number of unique cities in the customer table?
 
+Table: customer
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+city        TEXT
+email       TEXT
+phone       INTEGER
 ```sql
--- Paste your SQL code below for Question 5
+select
+     COUNT(DISTINCT city) as unique_cities
+from
+     customer;
 ```
-
 **Output:**
-
-![Output5](output.png)
+<img width="836" height="465" alt="image" src="https://github.com/user-attachments/assets/0233c331-941a-47e1-b550-0233668c2ed0" />
 
 **Question 6**
----
--- Paste Question 6 here
-
+Write a SQL query to calculate the total number of working hours of all employees
+Sample table: employee1
 ```sql
--- Paste your SQL code below for Question 6
+select
+     sum(workhour) as "Total working hours"
+from
+     employee1;
 ```
-
 **Output:**
+<img width="807" height="461" alt="image" src="https://github.com/user-attachments/assets/e29c0881-901c-4fc9-a7f5-e5ea44295162" />
 
-![Output6](output.png)
 
 **Question 7**
----
--- Paste Question 7 here
+Write a SQL query to Calculate the average email length (in characters) for people who lives in Mumbai city
 
+Table: customer
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT   
+city        TEXT
+email       TEXT
+phone       INTEGER
 ```sql
--- Paste your SQL code below for Question 7
+select
+     avg(LENGTH(email)) as
+avg_email_length_below_30
+from customer
+where city = 'Mumbai';
 ```
-
 **Output:**
 
-![Output7](output.png)
+<img width="871" height="499" alt="image" src="https://github.com/user-attachments/assets/4998edc6-ab74-4ced-ad4e-d2e6efeb1743" />
 
 **Question 8**
----
--- Paste Question 8 here
-
+Write the SQL query that accomplishes the grouping of data by joining date (jdate), calculates the maximum work hours for each date, and excludes dates where the maximum work hour is not greater than 12.
+Sample table: employee1
 ```sql
--- Paste your SQL code below for Question 8
+select
+    jdate,
+    MAX(workhour) AS "MAX(workhour)"
+from
+    employee1
+group by
+    jdate
+having
+    MAX(workhour) > 12;
 ```
-
 **Output:**
-
-![Output8](output.png)
+<img width="827" height="547" alt="image" src="https://github.com/user-attachments/assets/63462e15-2ee5-4b60-baa0-3b3c64775e54" />
 
 **Question 9**
----
--- Paste Question 9 here
-
+Write an SQL query that groups the customer data into 5-year age intervals, calculates the minimum salary for each group, and excludes groups where the minimum salary is not less than 2000.
+Table: customer1
 ```sql
--- Paste your SQL code below for Question 9
+select
+    (age / 5) * 5 AS age_group,
+    MIN(salary) AS "MIN(salary)"
+from
+    customer1
+group by
+    age_group
+having
+    min(salary) < 2000;
 ```
-
 **Output:**
-
-![Output9](output.png)
+<img width="792" height="471" alt="image" src="https://github.com/user-attachments/assets/1d6ead21-75db-4535-84e9-32bb70af1e48" />
 
 **Question 10**
----
--- Paste Question 10 here
-
+Write the SQL query that accomplishes the grouping of data by age, calculates the total income for each age group, and includes only those age groups where the total income sum is greater than 1,000,000.
+Sample table: employee
 ```sql
--- Paste your SQL code below for Question 10
+select
+     age,
+     SUM(income) AS "SUM(income)"
+from
+    employee
+group by
+    age
+having
+    sum(income) > 1000000;
 ```
-
 **Output:**
-
-![Output10](output.png)
+<img width="838" height="595" alt="image" src="https://github.com/user-attachments/assets/601dfe2f-ee48-4323-9eb1-46adbc4960f6" />
 
 ## RESULT
 Thus, the SQL queries to implement DML commands have been executed successfully.
